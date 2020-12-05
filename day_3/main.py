@@ -1,25 +1,34 @@
+import math
+
+
+def treeFinder(slope, data):
+    # Return count of trees run into during toboggan journey down slope
+    i = -1 * slope[0]
+    path = []
+    for line in data[::slope[1]]:
+        max = len(line)
+        i += slope[0]
+        if i >= max:
+            i = i - max
+
+        path.append(line[i])
+
+    return path.count('#')
+
+
 def main():
-    with open('input') as data:
+    filename = 'input'
+    with open(filename) as data:
         map = []
         for line in data:
             map.append(str(line.rstrip('\n')))
-        
-        trees = 0
-        down = 1
-        right = 2
-        path = []
-        for line in map[::down]:
-            try:
-                path.append(line[right])
-                right += 3
-            except Exception as e:
-                right = right - len(line)
-                path.append(line[right])
-                right += 3
+    
+    results = []
+    for slope in [[1,1],[3,1],[5,1],[7,1],[1,2]]:
+        results.append(treeFinder(slope, map))
 
-        print(path)
-
-        print(path.count('#'))
+    print(results)
+    print(math.prod(results))
 
 
 if __name__ == "__main__":
