@@ -3,7 +3,7 @@ import re
 
 class Passport():
     def __init__(self, byr="", iyr="", eyr="",
-            hgt="", hcl="", ecl="", pid="", cid=""):
+                 hgt="", hcl="", ecl="", pid="", cid=""):
         self.byr = byr
         self.iyr = iyr
         self.eyr = eyr
@@ -12,7 +12,6 @@ class Passport():
         self.ecl = ecl
         self.pid = pid
         self.cid = cid
-
 
     def reqPresent(self):
         req = self.reqList()
@@ -26,33 +25,26 @@ class Passport():
 
         return list(filter(len, values))
 
-    
     def strictRules(self):
         valid = []
         # Birth Year between 1920 and 2002
         try:
             if int(self.byr) in range(1920, 2003):
                 valid.append(self.byr)
-        except Exception as e:
+        except Exception:
             pass
-            # print(self.byr)
-            # print(e)
         # Issue Year between 2012 and 2020
         try:
             if int(self.iyr) in range(2010, 2021):
                 valid.append(self.iyr)
-        except Exception as e:
+        except Exception:
             pass
-            # print(self.iyr)
-            # print(e)
         # Expiration Year between 2020 and 2030
         try:
             if int(self.eyr) in range(2020, 2031):
                 valid.append(self.eyr)
-        except Exception as e:
+        except Exception:
             pass
-            # print(self.eyr)
-            # print(e)
         # Height between 150 and 193cm or 59 and 76in
         try:
             match = re.match(r'(\d+)(\w+)', self.hgt)
@@ -64,10 +56,8 @@ class Passport():
                 elif height[1].lower() == 'in':
                     if int(height[0]) in range(59, 77):
                         valid.append(self.hgt)
-        except Exception as e:
+        except Exception:
             pass
-            # print(self.hgt)
-            # print(e)
         # Hair Color must be hex color code
         try:
             if re.match(r'#[a-f0-9]{6}', self.hcl):
@@ -75,7 +65,7 @@ class Passport():
         except Exception as e:
             print(self.hcl)
             print(e)
-        # Eye Color must be in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
+        # Eye Color must be in list
         try:
             if self.ecl in ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']:
                 valid.append(self.ecl)
@@ -90,7 +80,6 @@ class Passport():
         except Exception as e:
             print(self.pid)
             print(e)
-
 
         if len(valid) == 7:
             print(valid[6])
