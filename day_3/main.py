@@ -22,9 +22,9 @@ def main():
         map = []
         for line in data:
             map.append(str(line.rstrip('\n')))
-    
+
     results = []
-    for slope in [[1,1],[3,1],[5,1],[7,1],[1,2]]:
+    for slope in [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]]:
         results.append(treeFinder(slope, map))
 
     print(results)
