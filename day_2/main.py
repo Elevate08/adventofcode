@@ -1,6 +1,5 @@
-# Source
-
 import re
+
 
 def validate(data):
     # Character must be in the password x <= char =< y
