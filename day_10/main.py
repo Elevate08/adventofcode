@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 def stepOne(source):
     source.append(max(source)+3)
     difference = []
@@ -11,33 +14,21 @@ def stepOne(source):
 
 
 def stepTwo(source, n=0):
-    result = 0
-    if source == max(source):
-        result += 1
-    elif 0 < num-n <= 3:
-        n = num
-    else:
-        try:
-            if 0 < source[i+1]-n <= 3:
-                n = source[i+1]
-                result += stepTwo(source[i+1:], n)
-        except Exception:
-            continue
-        try:
-            if 0 < source[source.index(num)+2]-n <= 3:
-                n = source[i+2]
-                result += stepTwo(source[i+2:], n)
-        except Exception:
-            continue
-        pass
+    source.append(source[-1] + 3)
 
-    return result
+    dp = Counter()
+    dp[0] = 1
+
+    for num in source:
+        dp[num] = dp[num - 1] + dp[num - 2] + dp[num - 3]
+
+    return dp[source[-1]]
 
 
 def main():
-    filename = 'test'
+    # filename = 'test'
     # filename = 'tests'
-    # filename = 'input'
+    filename = 'input'
     with open(filename) as data:
         source = []
         for line in data:
@@ -45,11 +36,8 @@ def main():
 
         source.sort()
         # print(stepOne(source))
-        result = 0
-        for i, num in enumerate(source):
-            result += stepTwo(source)
 
-        print(result)
+        print(stepTwo(source))
 
 
 if __name__ == "__main__":
